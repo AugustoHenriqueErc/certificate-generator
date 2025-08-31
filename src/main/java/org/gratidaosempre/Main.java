@@ -6,20 +6,19 @@ import com.itextpdf.layout.element.Paragraph;
 import java.io.*;
 
 public class Main {
-    public static final String DEST = "/home/augusto-henrique/Documents/certificado_digital_vailton/certificateGenerator/pdfs/test_Itextpdf/sample.pdf";
+    public static final String DEST = "./tests";
     public static PdfWriter pdfWriter ;
     public static PdfDocument pdf;
 
     public static void main(String args[]) throws IOException {
+        //Creating multiple pdfs
+        String[] names ={"Augusto", "Douglas", "Maria", "Matheus", "Gustavo"};
         pdfWriter = new PdfWriter(DEST);
         pdf = new PdfDocument(pdfWriter);
-        Document document = new Document(pdf);
-        String line1 = "Hello! This is the new PDF document sample!";
-        String line2 = "This is the second line of the PDF document sample";
-        document.add(new Paragraph(line1));
-        document.add(new Paragraph(line2));
-        document.close();
-
-        System.out.println("Awesome PDF just got created.");
+        for(int i = 0; i < names.length; i++) {
+            Document document = new Document(pdf);
+            document.add(new Paragraph(names[i]));
+            document.close();
+        }
     }
 }
