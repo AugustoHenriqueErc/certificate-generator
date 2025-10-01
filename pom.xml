@@ -95,7 +95,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <mainClass>org.gratidaosempre.Main</mainClass>
+                    <mainClass>org.gratidaosempre.app.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>

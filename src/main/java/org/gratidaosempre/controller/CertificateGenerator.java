@@ -1,6 +1,9 @@
 package org.gratidaosempre.controller;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,24 +13,39 @@ import java.util.*;
 
 
 public class CertificateGenerator {
-private static String NAMES_DIRECTORY ;
-private static String CERTIFICATES_DIRECTORY;
-private String local;
-private String date;
-    public CertificateGenerator(String local, String date, String fileName) {
+    private static String NAMES_DIRECTORY;
+    private static String CERTIFICATES_DIRECTORY;
+    private String local;
+    private String date;
+
+    public CertificateGenerator(String local, String date, String namesFileName) {
         this.local = local;
         this.date = date;
-        NAMES_DIRECTORY = "./names";
-        CERTIFICATES_DIRECTORY = "./certificates/" + Sanitizer.replaceSpace(local) + "/" + Sanitizer.replaceBar(date);
-        try{
-            generateCertificates(loadNames(fileName));
-        }catch (IOException e) {
-            System.err.println("CANNOT READ FILE" + fileName + " CANNOT GENERATE CERTIFICATES");
+
+        NAMES_DIRECTORY = ".out/names";
+        CERTIFICATES_DIRECTORY = ".out/certificates/" + Sanitizer.replaceSpace(local) + "/" + Sanitizer.replaceBar(date);
+        //Generate directories of doesn't exist
+        new File(CERTIFICATES_DIRECTORY).mkdirs();
+        new File(NAMES_DIRECTORY).mkdirs();
+        try {
+            generateCertificates(loadNames(namesFileName));
+        } catch (IOException e) {
+            System.err.println("CANNOT READ FILE " + namesFileName + " CANNOT GENERATE CERTIFICATES");
         }
     }
-     private void addDate(String name) {
+
+    private String getDate(){
+        return date;
+    }
+
+    private String getLocal(){
+        return local;
+    }
+
+    private void addDate(String name) {
 
     }
+
     private void addLocal(String local) {
 
     }
@@ -35,10 +53,11 @@ private String date;
     private void addName(String name) {
 
     }
+
     //Returns List of names within the names folder
-    public static List<String> loadNames(String fileName) throws IOException {
+    public static ArrayList<String> loadNames(String fileName) throws IOException {
         File file = new File(NAMES_DIRECTORY + "/" + fileName);
-        List<String> names = new ArrayList<>();
+        ArrayList<String> names = new ArrayList<>();
 
         if (!file.canRead()) {
             throw new IOException("Cannot read file " + file.getName());
@@ -56,10 +75,21 @@ private String date;
         return names;
     }
 
-    public static void generateCertificates(List<String> names){
+    public static void generateCertificates(List<String> names) {
         File directory = new File(CERTIFICATES_DIRECTORY);
 
+        try {
+            PdfWriter writer = new PdfWriter(directory);
+            for (int i = 0; i < names.size(); i++) {
+                PdfDocument pdf = new PdfDocument(writer);
+                Document document = new Document(pdf);
+                document.add(new Paragraph(names.get(i)));
 
+                document.close();
+                System.out.println("PDF gerado com sucesso em: " + CERTIFICATES_DIRECTORY);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
 }
