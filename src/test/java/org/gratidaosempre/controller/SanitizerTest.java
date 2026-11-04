@@ -6,19 +6,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SanitizerTest {
     @Test
-    void sanitizerNameTest(){
+    void sanitizerNameTestCase1(){
        assertEquals("Augusto_Henrique",Sanitizer.replaceSpace("Augusto Henrique"));
     }
     @Test
-    void sanitizerDateTest() {
+    void sanitizerDateTestCase1() {
         assertEquals("30_08_2025", Sanitizer.replaceBar("30_08_2025"));
     }
     @Test
-    void sanitizerNameTest1(){
+    void sanitizerNameTestCase2(){
         assertEquals("Augusto_Henrique",Sanitizer.replaceSpace(" Augusto Henrique "));
     }
     @Test
-    void sanitizerDateTest1() {
+    void sanitizerDateTestCase2() {
         assertEquals("30_08_2025", Sanitizer.replaceBar(" 30_08_2025 "));
     }
 }

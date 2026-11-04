@@ -34,6 +34,13 @@ public class CertificateGenerator {
         }
     }
 
+    public static void setCertificatesDirectory(String certificatesDirectory) {
+        CERTIFICATES_DIRECTORY = certificatesDirectory;
+    }
+    public static void setNamesDirectory(String namesDirectory) {
+        NAMES_DIRECTORY = namesDirectory;
+    }
+
     private String getDate(){
         return date;
     }
