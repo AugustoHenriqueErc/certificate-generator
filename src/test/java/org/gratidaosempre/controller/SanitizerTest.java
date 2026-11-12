@@ -11,7 +11,7 @@ class SanitizerTest {
     }
     @Test
     void sanitizerDateTestCase1() {
-        assertEquals("30_08_2025", Sanitizer.replaceBar("30_08_2025"));
+        assertEquals("30_08_2025", Sanitizer.replaceBar("30/08/2025"));
     }
     @Test
     void sanitizerNameTestCase2(){
@@ -19,6 +19,6 @@ class SanitizerTest {
     }
     @Test
     void sanitizerDateTestCase2() {
-        assertEquals("30_08_2025", Sanitizer.replaceBar(" 30_08_2025 "));
+        assertEquals("30_08_2025", Sanitizer.replaceBar(" 30/08/2025 "));
     }
 }

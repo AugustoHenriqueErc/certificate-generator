@@ -4,6 +4,16 @@ Status: rascunho para discussão. Este documento descreve o comportamento propos
 as funcionalidades abaixo ainda precisam ser implementadas. As dependências e
 limitações atuais foram verificadas no repositório.
 
+## Atualização do protótipo
+
+O protótipo já valida datas reais com barras ou hífens, recebe argumentos
+posicionais, lê UTF-8 e gera um PDF independente por participante. O construtor
+não executa I/O; os caminhos são configurados por instância antes de `generate()`.
+JUnit Jupiter e Surefire estão configurados, com testes de geração e leitura do PDF.
+Veja o README para a interface atual. O quadro da seção 3 registra o estado
+anterior a essa implementação; o contrato de opções nomeadas e o preenchimento
+do modelo descritos abaixo continuam como proposta.
+
 ## 1. Contexto e objetivo
 
 Vailton é ex-socorrista do SAMU, atua por conta própria na cobertura de eventos

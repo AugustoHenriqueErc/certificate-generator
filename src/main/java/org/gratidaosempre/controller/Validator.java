@@ -1,17 +1,22 @@
 package org.gratidaosempre.controller;
 
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 public class Validator {
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter
+            .ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
 
     public static boolean dateTime(String dateTime) {
-        String regex = "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\\d{4}$";
-
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(dateTime);
-
-        if(!matcher.find()) {return false;}
-        return true;
+        if (dateTime == null || !dateTime.matches("[0-9]{2}([/-])[0-9]{2}\\1[0-9]{4}")) {
+            return false;
+        }
+        try {
+            return LocalDate.parse(dateTime.replace('-', '/'), DATE_FORMAT).getYear() > 0;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }
